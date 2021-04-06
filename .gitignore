@@ -1,0 +1,4 @@
+*.sw*
+test.py
+__pycache__
+tank/
