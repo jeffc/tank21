@@ -14,21 +14,16 @@ display = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 space = pymunk.Space()
-#space.gravity = 0, -1000
-
-BALL_RADIUS = 50
-
-def coord(c):
-  return c[0], HEIGHT-c[1]
+space.damping = SPEED_DAMPING
 
 def mainloop():
 
-  ball = Fish((50, 50))
-  ball._body.body_type=pymunk.Body.KINEMATIC
-  ball2 = Fish((200, 200))
+  fish = Fish((50, 50))
+  fish._body.body_type=pymunk.Body.KINEMATIC
+  fish2 = Fish((200, 200))
 
-  ball.addToSpace(space)
-  ball2.addToSpace(space)
+  fish.addToSpace(space)
+  fish2.addToSpace(space)
 
   walls = pymunk.Body(body_type=pymunk.Body.STATIC)
   space.add(walls)
@@ -67,12 +62,17 @@ def mainloop():
     else:
       vy = 0
 
-    ball._body.velocity = (vx, vy)
+    fish._body.velocity = (vx, vy)
+
+    if keys[pygame.K_j]:
+      fish.body.angle += 1/180. * 3
+    elif keys[pygame.K_k]:
+      fish.body.angle -= 1/180. * 3
 
     display.fill((0, 0, 0))
 
-    ball.draw(display)
-    ball2.draw(display)
+    fish.draw(display)
+    fish2.draw(display)
 
     pygame.display.update()
     clock.tick(FPS)

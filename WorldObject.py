@@ -5,12 +5,16 @@ class WorldObject:
   """Base class for objects that can exist in our world"""
 
   def __init__(self):
+    self.should_remove = False
     pass
 
   def draw(self, display):
     pass
 
   def addToSpace(self, space):
+    pass
+
+  def removeFromSpace(self, space):
     pass
   
   @property
