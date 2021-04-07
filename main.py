@@ -19,26 +19,26 @@ space.damping = SPEED_DAMPING
 
 def mainloop():
 
-  fish = Fish((50, 50))
+  fish = Fish((50, 50), space)
   #fish._body.body_type=pymunk.Body.KINEMATIC
   fish._controller = KeyboardController()
-  fish2 = Fish((200, 200))
+  fish2 = Fish((200, 200), space)
 
   fish.addToSpace(space)
   fish2.addToSpace(space)
 
   walls = pymunk.Body(body_type=pymunk.Body.STATIC)
   space.add(walls)
-  s = pymunk.Segment(walls, (0, 0), (WIDTH, 0), 1)
+  s = pymunk.Segment(walls, (0, 0), (WIDTH, 0), 5)
   s.elasticity = 1
   space.add(s)
-  s = pymunk.Segment(walls, (WIDTH, 0), (WIDTH, HEIGHT), 1)
+  s = pymunk.Segment(walls, (WIDTH, 0), (WIDTH, HEIGHT), 5)
   s.elasticity = 1
   space.add(s)
-  s = pymunk.Segment(walls, (WIDTH, HEIGHT), (0, HEIGHT), 1)
+  s = pymunk.Segment(walls, (WIDTH, HEIGHT), (0, HEIGHT), 5)
   s.elasticity = 1
   space.add(s)
-  s = pymunk.Segment(walls, (0, 0), (0, HEIGHT), 1)
+  s = pymunk.Segment(walls, (0, 0), (0, HEIGHT), 5)
   s.elasticity = 1
   space.add(s)
 
