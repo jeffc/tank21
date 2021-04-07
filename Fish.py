@@ -1,6 +1,7 @@
 import pymunk
 import pygame
 from WorldObject import WorldObject
+from Controller import Controller
 from Util import *
 
 from math import *
@@ -16,7 +17,8 @@ class Fish(WorldObject):
     self._shape = pymunk.Circle(self.body, FISH_RADIUS)
     self._shape.density = 1
     self._shape.elasticity = 0.9
-    self._shape.friction = 0.5
+    self._shape.friction = 0.2
+    self._controller = Controller()
 
   def draw(self, display):
     pygame.draw.circle(display,
@@ -34,6 +36,19 @@ class Fish(WorldObject):
           round(self.position.y + FISH_RADIUS * self.body.rotation_vector.y))
           )
         )
+
+
+  def step(self, dt):
+
+    o = self._controller.step(dt)
+    impulse = o['FORWARD'] * 5e5
+
+    self.body.apply_force_at_local_point(
+        (impulse, 0),
+        (0, 0)
+    )
+
+    self.body.angle += o['ROTATE'] * 8/180.
 
 
 

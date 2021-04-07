@@ -11,6 +11,9 @@ class WorldObject:
   def draw(self, display):
     pass
 
+  def step(self, dt):
+    pass
+
   def addToSpace(self, space):
     pass
 

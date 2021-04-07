@@ -7,6 +7,7 @@ import random
 
 from Constants import *
 from Fish import Fish
+from Controller import KeyboardController
 
 pygame.init()
 
@@ -19,7 +20,8 @@ space.damping = SPEED_DAMPING
 def mainloop():
 
   fish = Fish((50, 50))
-  fish._body.body_type=pymunk.Body.KINEMATIC
+  #fish._body.body_type=pymunk.Body.KINEMATIC
+  fish._controller = KeyboardController()
   fish2 = Fish((200, 200))
 
   fish.addToSpace(space)
@@ -45,30 +47,6 @@ def mainloop():
       if event.type == pygame.QUIT:
         return
 
-    keys = pygame.key.get_pressed()
-
-    vx, vy = 0, 0
-    if keys[pygame.K_LEFT]:
-      vx = -500
-    elif keys[pygame.K_RIGHT]:
-      vx = 500
-    else:
-      vx = 0
-
-    if keys[pygame.K_UP]:
-      vy = 500
-    elif keys[pygame.K_DOWN]:
-      vy = -500
-    else:
-      vy = 0
-
-    fish._body.velocity = (vx, vy)
-
-    if keys[pygame.K_j]:
-      fish.body.angle += 1/180. * 3
-    elif keys[pygame.K_k]:
-      fish.body.angle -= 1/180. * 3
-
     display.fill((0, 0, 0))
 
     fish.draw(display)
@@ -76,6 +54,9 @@ def mainloop():
 
     pygame.display.update()
     clock.tick(FPS)
+    
+    fish.step(1.0/FPS)
+    fish2.step(1.0/FPS)
     space.step(1.0/FPS)
 
 if __name__ == '__main__':
